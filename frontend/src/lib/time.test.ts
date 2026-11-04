@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   addMinutes,
+  blockDensity,
   blockPosition,
   dayBounds,
   hourWindowFor,
@@ -44,6 +45,14 @@ describe("blockPosition", () => {
     const full = { startHour: 0, endHour: 24 };
     const { left, width } = blockPosition(at(23), at(1, 0, 8), day, full);
     expect(left + width).toBeCloseTo(100);
+  });
+});
+
+describe("blockDensity", () => {
+  it("reduz o conteúdo conforme a duração", () => {
+    expect(blockDensity(at(9), at(9, 15))).toBe("tiny");
+    expect(blockDensity(at(9), at(9, 30))).toBe("compact");
+    expect(blockDensity(at(9), at(10))).toBe("regular");
   });
 });
 

@@ -1,6 +1,13 @@
 import { type MouseEvent } from "react";
 import type { Booking, Room } from "../api";
-import { blockPosition, formatTime, type HourWindow, hourWindowFor, timeAtRatio } from "../lib/time";
+import {
+  blockDensity,
+  blockPosition,
+  formatTime,
+  type HourWindow,
+  hourWindowFor,
+  timeAtRatio,
+} from "../lib/time";
 
 interface TimelineProps {
   rooms: Room[];
@@ -101,7 +108,7 @@ function TimelineRow({
             <button
               key={booking.id}
               type="button"
-              className="block"
+              className={`block ${blockDensity(new Date(booking.start), new Date(booking.end))}`}
               style={{ left: `${left}%`, width: `${width}%` }}
               title={`${booking.title} · ${formatTime(booking.start)}–${formatTime(booking.end)}`}
               onClick={(event) => {

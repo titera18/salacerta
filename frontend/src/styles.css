@@ -219,7 +219,7 @@ select {
 
 .timeline {
   --room-width: 190px;
-  min-width: calc(var(--room-width) + var(--hours) * 56px);
+  min-width: calc(var(--room-width) + var(--hours) * 88px);
 }
 
 .timeline-row {
@@ -316,25 +316,67 @@ select {
   cursor: pointer;
 }
 
-.block:hover {
-  filter: brightness(0.96);
+.block:hover,
+.block:focus-visible {
+  z-index: 3;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 25%);
 }
 
-.block-title,
+.block-title {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
 .block-time {
   overflow: hidden;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.block-title {
-  font-size: 13px;
-  font-weight: 600;
+.block.compact {
+  padding: 2px 4px;
 }
 
-.block-time {
-  font-size: 11px;
-  font-variant-numeric: tabular-nums;
+.block.compact .block-title {
+  font-size: 12px;
+  -webkit-line-clamp: 3;
+}
+
+.block.compact .block-time,
+.block.tiny .block-title,
+.block.tiny .block-time {
+  display: none;
+}
+
+.block.tiny {
+  padding: 2px;
+}
+
+.block:hover .block-title,
+.block:focus-visible .block-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+}
+
+.block:hover .block-time,
+.block:focus-visible .block-time {
+  display: block;
+}
+
+.block.compact:hover,
+.block.tiny:hover,
+.block.compact:focus-visible,
+.block.tiny:focus-visible {
+  min-width: 170px;
+  padding: 2px 8px;
 }
 
 .empty {

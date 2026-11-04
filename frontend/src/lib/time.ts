@@ -61,6 +61,15 @@ export function blockPosition(
   return { left: (from / total) * 100, width: ((to - from) / total) * 100 };
 }
 
+export type BlockDensity = "regular" | "compact" | "tiny";
+
+/** Define quanto texto cabe no bloco: reservas curtas mostram menos e revelam o resto no hover. */
+export function blockDensity(start: Date, end: Date): BlockDensity {
+  const minutes = (end.getTime() - start.getTime()) / 60_000;
+  if (minutes < 30) return "tiny";
+  return minutes < 60 ? "compact" : "regular";
+}
+
 /** Converte a posição de um clique na faixa em horário, arredondado para baixo a cada 30 min. */
 export function timeAtRatio(ratio: number, window: HourWindow): string {
   const total = (window.endHour - window.startHour) * 60;
